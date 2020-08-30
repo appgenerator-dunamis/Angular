@@ -1,0 +1,26 @@
+.pagination{
+    display: inline-flex;
+    padding:10px;
+}
+
+
+.pager{
+    margin-top:20px;
+    
+}
+
+.link{
+    cursor: pointer;
+    padding:10px;
+    margin:0px;
+    background: transparent !important;
+}
+.active a {
+    background-color:transparent!important;
+    border-bottom: 2px solid #ddd;
+    padding: 5px;
+}
+
+.clickable{
+    background: transparent !important;
+  }

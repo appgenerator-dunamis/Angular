@@ -1,0 +1,31 @@
+<h1 class="h1">
+    Leads
+</h1>
+
+
+<clr-tabs >
+    <clr-tab > 
+            <button clrTabLink (click)="activate('lead')">Lead</button>
+            <clr-tab-content id="content1" *clrIfActive="activeTab=='lead'">
+            <app-lead></app-lead>
+            </clr-tab-content>
+        </clr-tab>
+
+    <clr-tab > 
+    <button clrTabLink (click)="activate('product')">Product</button>
+    <clr-tab-content id="content1" *clrIfActive="activeTab=='product'">
+    <app-product></app-product>
+    </clr-tab-content>
+</clr-tab><clr-tab > 
+    <button clrTabLink (click)="activate('customer')">Customer</button>
+    <clr-tab-content id="content1" *clrIfActive="activeTab=='customer'">
+    <app-customer></app-customer>
+    </clr-tab-content>
+</clr-tab><clr-tab > 
+    <button clrTabLink (click)="activate('organization')">Organization</button>
+    <clr-tab-content id="content1" *clrIfActive="activeTab=='organization'">
+    <app-organization></app-organization>
+    </clr-tab-content>
+</clr-tab>
+  
+</clr-tabs>

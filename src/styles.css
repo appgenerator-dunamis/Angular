@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+.btn-primary .btn, .btn.btn-primary, .btn:hover{
+    background-color: #f68632;
+    border-color: #f68632;
+    
+}
+
+.tabs-vertical>.nav .nav-link.active, .tabs-vertical>.nav .nav-link:hover {
+    box-shadow: inset 3px 0 0 #f68632;
+
+}
+
+
+.nav .nav-link.active, .nav .nav-link:hover {
+    box-shadow: 0 -3px 0 #f68632 inset;
+
+}
+
+.btn, .btn-info .btn:visited, .btn-outline-info .btn:visited, .btn-outline-primary .btn:visited, .btn-outline-secondary .btn:visited, .btn-primary-outline .btn:visited, .btn-secondary .btn:visited, .btn-secondary-outline .btn:visited, .btn.btn-info:visited, .btn.btn-outline-primary:visited, .btn.btn-outline-secondary:visited, .btn.btn-primary-outline:visited, .btn.btn-secondary-outline:visited, .btn.btn-secondary:visited, .btn:visited {
+    color: #f68632;
+
+}
+.btn{
+    border-color: #f68632;
+
+}
+
+.btn:hover{
+    color:white;
+}
+
+.btn-link .btn, .btn.btn-link{
+    color: #f68632;
+}
+
+  .menuTop{
+      margin-top:50px;
+  }

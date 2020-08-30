@@ -1,0 +1,157 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th class="left">
+                <a class="clickable" (click) = "setSortField('id')">
+                    <span
+                    [style.font-weight]="sortField=='id'?'bold':''" >
+                        Id
+                    </span>
+                    <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='id' && direction == 1"></clr-icon>
+                    <clr-icon shape="caret" *ngIf="sortField=='id' && direction == 0"></clr-icon>
+                </a>
+            </th>
+            
+            <!--	<th class="left"> 
+                <a class="clickable" (click) = "setSortField('Lead')">
+                    <span
+                    [style.font-weight]="sortField=='Lead'?'bold':''" >
+                        Lead
+                    </span>                    
+                </a>
+
+                <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='Lead' && direction == 1"></clr-icon>
+                <clr-icon shape="caret" *ngIf="sortField=='Lead' && direction == 0"></clr-icon>
+            </th>--><th class="left"> 
+                <a class="clickable" (click) = "setSortField('Date')">
+                    <span
+                    [style.font-weight]="sortField=='Date'?'bold':''" >
+                        Date
+                    </span>                    
+                </a>
+
+                <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='Date' && direction == 1"></clr-icon>
+                <clr-icon shape="caret" *ngIf="sortField=='Date' && direction == 0"></clr-icon>
+            </th> <th class="left"> 
+                <a class="clickable" (click) = "setSortField('Product')">
+                    <span
+                    [style.font-weight]="sortField=='Product'?'bold':''" >
+                        Product
+                    </span>                    
+                </a>
+
+                <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='Product' && direction == 1"></clr-icon>
+                <clr-icon shape="caret" *ngIf="sortField=='Product' && direction == 0"></clr-icon>
+            </th><th class="left"> 
+                <a class="clickable" (click) = "setSortField('Customer')">
+                    <span
+                    [style.font-weight]="sortField=='Customer'?'bold':''" >
+                        Customer
+                    </span>                    
+                </a>
+
+                <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='Customer' && direction == 1"></clr-icon>
+                <clr-icon shape="caret" *ngIf="sortField=='Customer' && direction == 0"></clr-icon>
+            </th><th class="left"> 
+                <a class="clickable" (click) = "setSortField('Organization')">
+                    <span
+                    [style.font-weight]="sortField=='Organization'?'bold':''" >
+                        Organization
+                    </span>                    
+                </a>
+
+                <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='Organization' && direction == 1"></clr-icon>
+                <clr-icon shape="caret" *ngIf="sortField=='Organization' && direction == 0"></clr-icon>
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let lead of leads; let i = index">
+            <td class="left">{{lead.id}}</td>
+            
+            <!--<td >{{lead.lead}}</td>-->
+            <td class="left">28/Aug/20</td>
+            <td class="left"><span *ngIf="lead.product!=null && lead.product.product!=null">
+{{lead.product.product}}</span></td>
+<td class="left"><span *ngIf="lead.customer!=null && lead.customer.customer!=null">
+{{lead.customer.customer}}</span></td>
+<td class="left"><span *ngIf="lead.organization!=null && lead.organization.organization!=null">
+{{lead.organization.organization}}</span></td>
+            <td class="left"> 
+                <div class="btn-group btn-link btn-sm">
+                    <button class="btn"><clr-icon shape="form" (click) = "editLead(lead)"></clr-icon></button>
+                    <button class="btn" (click) = "loadDeleteLead(lead)"><clr-icon shape="trash"></clr-icon></button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+</table>
+
+<app-pager *ngIf="pagedetails.totalPages>1" [pager]="pagedetails" (selectPage)="onSelectPage($event)"></app-pager>
+
+<button class="btn btn-sm" (click) = "addLead()"><clr-icon shape="new"></clr-icon> Add Lead</button>
+
+<clr-modal [(clrModalOpen)]="showLeadDialog" *ngIf="selectedLead">
+    <h3 class="modal-title">Lead - {{selectedLead.lead}}</h3>
+    <div class="modal-body">
+            <form clrForm  clrLayout="horizontal">
+                <clr-input-container>
+    <label>Lead</label>
+    <input clrInput type="text" [(ngModel)]="selectedLead.lead" name="lead" required />
+    <clr-control-error>Please Enter lead</clr-control-error>
+</clr-input-container><clr-input-container>
+    <label>Date</label>
+    <input clrInput type="text" [(ngModel)]="selectedLead.date" name="date" required />
+    <clr-control-error>Please Enter date</clr-control-error>
+</clr-input-container>
+                <clr-select-container *ngIf="selectedLead.product!=undefined">
+            <label>Product</label>
+            <select clrSelect name="options" [(ngModel)]="selectedLead.product.id" required>
+                <option ></option>
+                <option *ngFor="let product of products"
+                    [ngValue]="product.id">
+                    {{product.product}}
+                </option>
+            </select>
+            <clr-control-error>Please Enter Product</clr-control-error>
+        </clr-select-container><clr-select-container *ngIf="selectedLead.customer!=undefined">
+            <label>Customer</label>
+            <select clrSelect name="options" [(ngModel)]="selectedLead.customer.id" required>
+                <option ></option>
+                <option *ngFor="let customer of customers"
+                    [ngValue]="customer.id">
+                    {{customer.customer}}
+                </option>
+            </select>
+            <clr-control-error>Please Enter Customer</clr-control-error>
+        </clr-select-container><clr-select-container *ngIf="selectedLead.organization!=undefined">
+            <label>Organization</label>
+            <select clrSelect name="options" [(ngModel)]="selectedLead.organization.id" required>
+                <option ></option>
+                <option *ngFor="let organization of organizations"
+                    [ngValue]="organization.id">
+                    {{organization.organization}}
+                </option>
+            </select>
+            <clr-control-error>Please Enter Organization</clr-control-error>
+        </clr-select-container>
+            </form>        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="showLeadDialog = false">Cancel </button>
+        <button type="button" class="btn" (click)="saveLead()">Save</button>
+    </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="showDeleteLeadDialog" *ngIf="selectedLead">
+    <h3 class="modal-title">{{selectedLead.lead}}</h3>
+    <div class="modal-body">
+        Do you want to delete?    
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="showLeadDialog = false">Cancel </button>
+        <button type="button" class="btn" (click)="deleteLead()">Delete</button>
+    </div>
+</clr-modal>

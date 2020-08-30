@@ -1,0 +1,83 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th class="left">
+                <a class="clickable" (click) = "setSortField('id')">
+                    <span
+                    [style.font-weight]="sortField=='id'?'bold':''" >
+                        Id
+                    </span>
+                    <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='id' && direction == 1"></clr-icon>
+                    <clr-icon shape="caret" *ngIf="sortField=='id' && direction == 0"></clr-icon>
+                </a>
+            </th>
+            
+            	 <th class="left"> 
+                <a class="clickable" (click) = "setSortField('FirstName')">
+                    <span
+                    [style.font-weight]="sortField=='FirstName'?'bold':''" >
+                        FirstName
+                    </span>                    
+                </a>
+
+                <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='FirstName' && direction == 1"></clr-icon>
+                <clr-icon shape="caret" *ngIf="sortField=='FirstName' && direction == 0"></clr-icon>
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let customer of customers; let i = index">
+            <td class="left">{{customer.id}}</td>
+            
+            <td ><span *ngIf="customer.customer!=null && customer.customer.firstName!=null">
+{{customer.customer.firstName}}</span></td>
+            <td> 
+                <div class="btn-group btn-link btn-sm">
+                    <button class="btn"><clr-icon shape="form" (click) = "editCustomer(customer)"></clr-icon></button>
+                    <button class="btn" (click) = "loadDeleteCustomer(customer)"><clr-icon shape="trash"></clr-icon></button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+</table>
+
+<app-pager *ngIf="pagedetails.totalPages>1" [pager]="pagedetails" (selectPage)="onSelectPage($event)"></app-pager>
+
+<button class="btn btn-sm" (click) = "addCustomer()"><clr-icon shape="new"></clr-icon> Add Customer</button>
+
+<clr-modal [(clrModalOpen)]="showCustomerDialog" *ngIf="selectedCustomer">
+    <h3 class="modal-title">Customer - {{selectedCustomer.customer}}</h3>
+    <div class="modal-body">
+            <form clrForm  clrLayout="horizontal">
+                
+                <clr-select-container *ngIf="selectedCustomer.customer!=undefined">
+            <label>Customer</label>
+            <select clrSelect name="options" [(ngModel)]="selectedCustomer.customer.id" required>
+                <option ></option>
+                <option *ngFor="let person of customers"
+                    [ngValue]="person.id">
+                    {{person.firstName}}
+                </option>
+            </select>
+            <clr-control-error>Please Enter Customer</clr-control-error>
+        </clr-select-container>
+            </form>        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="showCustomerDialog = false">Cancel </button>
+        <button type="button" class="btn" (click)="saveCustomer()">Save</button>
+    </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="showDeleteCustomerDialog" *ngIf="selectedCustomer">
+    <h3 class="modal-title">{{selectedCustomer.customer}}</h3>
+    <div class="modal-body">
+        Do you want to delete?    
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="showCustomerDialog = false">Cancel </button>
+        <button type="button" class="btn" (click)="deleteCustomer()">Delete</button>
+    </div>
+</clr-modal>

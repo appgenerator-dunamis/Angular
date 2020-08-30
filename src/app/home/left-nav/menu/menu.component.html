@@ -1,0 +1,27 @@
+<div class="menuTop">
+</div>
+<clr-tree >
+        
+    <clr-tree-node >
+        <button
+        
+        (click)="selectPage(1)"
+        class="clr-treenode-link"
+        [class.active]="selectedPage==1"
+        >
+        Home
+        </button>
+    </clr-tree-node>
+
+    <clr-tree-node >
+        <button
+        
+        (click)="selectPage(2)"
+        class="clr-treenode-link"
+        [class.active]="selectedPage==2"
+        >
+        Leads
+        </button>
+    </clr-tree-node>
+
+</clr-tree>

@@ -1,0 +1,76 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th class="left">
+                <a class="clickable" (click) = "setSortField('id')">
+                    <span
+                    [style.font-weight]="sortField=='id'?'bold':''" >
+                        Id
+                    </span>
+                    <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='id' && direction == 1"></clr-icon>
+                    <clr-icon shape="caret" *ngIf="sortField=='id' && direction == 0"></clr-icon>
+                </a>
+            </th>
+            
+            	<th class="left"> 
+                <a class="clickable" (click) = "setSortField('Organization')">
+                    <span
+                    [style.font-weight]="sortField=='Organization'?'bold':''" >
+                        Organization
+                    </span>                    
+                </a>
+
+                <clr-icon shape="caret" style="transform: rotate(180deg);"  *ngIf="sortField=='Organization' && direction == 1"></clr-icon>
+                <clr-icon shape="caret" *ngIf="sortField=='Organization' && direction == 0"></clr-icon>
+            </th> 
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let organization of organizations; let i = index">
+            <td class="left">{{organization.id}}</td>
+            
+            <td >{{organization.organization}}</td>
+            <td> 
+                <div class="btn-group btn-link btn-sm">
+                    <button class="btn"><clr-icon shape="form" (click) = "editOrganization(organization)"></clr-icon></button>
+                    <button class="btn" (click) = "loadDeleteOrganization(organization)"><clr-icon shape="trash"></clr-icon></button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+</table>
+
+<app-pager *ngIf="pagedetails.totalPages>1" [pager]="pagedetails" (selectPage)="onSelectPage($event)"></app-pager>
+
+<button class="btn btn-sm" (click) = "addOrganization()"><clr-icon shape="new"></clr-icon> Add Organization</button>
+
+<clr-modal [(clrModalOpen)]="showOrganizationDialog" *ngIf="selectedOrganization">
+    <h3 class="modal-title">Organization - {{selectedOrganization.organization}}</h3>
+    <div class="modal-body">
+            <form clrForm  clrLayout="horizontal">
+                <clr-input-container>
+    <label>Organization</label>
+    <input clrInput type="text" [(ngModel)]="selectedOrganization.organization" name="organization" required />
+    <clr-control-error>Please Enter organization</clr-control-error>
+</clr-input-container>
+                
+            </form>        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="showOrganizationDialog = false">Cancel </button>
+        <button type="button" class="btn" (click)="saveOrganization()">Save</button>
+    </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="showDeleteOrganizationDialog" *ngIf="selectedOrganization">
+    <h3 class="modal-title">{{selectedOrganization.organization}}</h3>
+    <div class="modal-body">
+        Do you want to delete?    
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="showOrganizationDialog = false">Cancel </button>
+        <button type="button" class="btn" (click)="deleteOrganization()">Delete</button>
+    </div>
+</clr-modal>
